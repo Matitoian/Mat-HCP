@@ -1,0 +1,15 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "[typescript]": {
+    "defaultFormatter": "denoland.vscode-deno",
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[tsx]": {
+    "defaultFormatter": "denoland.vscode-deno"
+  },
+  "files.exclude": {
+    "**/.git": true
+  }
+}

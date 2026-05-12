@@ -1,0 +1,208 @@
+version: '3.8'
+
+services:
+  # Phase 2: Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: housecom-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --maxmemory 4gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: redis-cli ping
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # Phase 3: RabbitMQ
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    container_name: housecom-rabbitmq
+    ports:
+      - "5672:5672"      # AMQP
+      - "15672:15672"    # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: housecom
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-password}
+      RABBITMQ_DEFAULT_VHOST: housecom
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # Phase 4: Elasticsearch
+  elasticsearch:
+    image: elasticsearch:8.5.0
+    container_name: housecom-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # PostgreSQL Primary (Metadata Router)
+  postgres:
+    image: postgres:15-alpine
+    container_name: housecom-postgres
+    environment:
+      POSTGRES_DB: housecom
+      POSTGRES_USER: ${DB_USER:-housecom}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backend/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U housecom -d housecom"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # Prometheus (Monitoring)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: housecom-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # Grafana (Dashboards)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: housecom-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # Mailhog (Email Testing)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: housecom-mailhog
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # Redis Exporter (Metrics)
+  redis-exporter:
+    image: oliver006/redis_exporter
+    container_name: housecom-redis-exporter
+    ports:
+      - "9121:9121"
+    environment:
+      REDIS_ADDR: redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # RabbitMQ Exporter (Metrics)
+  rabbitmq-exporter:
+    image: kbudde/rabbitmq-exporter
+    container_name: housecom-rabbitmq-exporter
+    ports:
+      - "9419:9419"
+    environment:
+      RABBITMQ_URL: http://rabbitmq:15672
+      RABBITMQ_USER: housecom
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:-password}
+    depends_on:
+      - rabbitmq
+    networks:
+      - housecom
+    restart: unless-stopped
+
+  # Nginx Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: housecom-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8888:8888"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - redis
+      - rabbitmq
+      - elasticsearch
+      - postgres
+    networks:
+      - housecom
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  rabbitmq-data:
+  elasticsearch-data:
+  postgres-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  housecom:
+    driver: bridge
+
+# Usage:
+# docker-compose -f docker-compose.yml up -d              # Start all services
+# docker-compose -f docker-compose.yml down               # Stop all services
+# docker-compose -f docker-compose.yml logs -f redis      # View Redis logs
+# docker-compose -f docker-compose.yml exec postgres psql # Connect to PostgreSQL
+
+# Access Points:
+# - RabbitMQ UI: http://localhost:15672 (housecom/password)
+# - Elasticsearch: http://localhost:9200
+# - Prometheus: http://localhost:9090
+# - Grafana: http://localhost:3000 (admin/admin)
+# - Mailhog (email testing): http://localhost:8025
+# - PostgreSQL: localhost:5432 (housecom/password)
+# - Redis: localhost:6379

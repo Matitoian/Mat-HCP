@@ -1,0 +1,196 @@
+/* HouseCom Brand Color Utilities */
+
+:root {
+  /* Primary Colors */
+  --housecom-cyan: #0ea5e9;
+  --housecom-blue: #2563eb;
+  --housecom-purple: #7c3aed;
+  --housecom-accent: #f97316;
+  
+  /* Neutral Colors */
+  --housecom-light: #f0f4ff;
+  --housecom-gray: #f3f4f6;
+  --housecom-dark: #1a1f3a;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #0ea5e9, #2563eb, #7c3aed);
+  --gradient-soft: linear-gradient(135deg, #e0f2fe, #2563eb);
+  --gradient-dark: linear-gradient(135deg, #f0f4ff, #e0e7ff);
+}
+
+/* Text Gradients */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-soft {
+  background: var(--gradient-soft);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Brand Colors */
+.text-cyan { color: var(--housecom-cyan); }
+.text-brand-blue { color: var(--housecom-blue); }
+.text-brand-purple { color: var(--housecom-purple); }
+
+.bg-cyan { background-color: var(--housecom-cyan); }
+.bg-brand-blue { background-color: var(--housecom-blue); }
+.bg-brand-purple { background-color: var(--housecom-purple); }
+
+.border-cyan { border-color: var(--housecom-cyan); }
+.border-brand-blue { border-color: var(--housecom-blue); }
+.border-brand-purple { border-color: var(--housecom-purple); }
+
+/* Gradient Backgrounds */
+.bg-gradient-brand {
+  background: var(--gradient-primary);
+}
+
+/* Brand Buttons */
+.btn-brand {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-brand:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(7, 89, 133, 0.3);
+}
+
+.btn-brand:active {
+  transform: translateY(0);
+}
+
+/* Brand Links */
+.link-brand {
+  color: var(--housecom-blue);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.link-brand:hover {
+  color: var(--housecom-purple);
+}
+
+.link-brand::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transition: width 0.3s ease;
+}
+
+.link-brand:hover::after {
+  width: 100%;
+}
+
+/* Card Accents */
+.card-brand {
+  border: 1px solid rgba(37, 99, 235, 0.1);
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.5), transparent);
+  transition: all 0.3s ease;
+}
+
+.card-brand:hover {
+  border-color: rgba(37, 99, 235, 0.3);
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.8), transparent);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.1);
+}
+
+/* Glow Effect */
+.glow-brand {
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+}
+
+.glow-brand-lg {
+  box-shadow: 0 0 40px rgba(14, 165, 233, 0.4);
+}
+
+/* Animations */
+@keyframes pulse-brand {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-pulse-brand {
+  animation: pulse-brand 2s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+  .card-brand {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+    border-color: rgba(124, 58, 237, 0.2);
+  }
+
+  .card-brand:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), transparent);
+    border-color: rgba(124, 58, 237, 0.4);
+  }
+
+  .glow-brand {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+  }
+}
+
+/* Responsive Brand Sizing */
+@media (max-width: 768px) {
+  .btn-brand {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .text-gradient {
+    font-size: 1.5rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .btn-brand,
+  .link-brand {
+    color: #000;
+  }
+
+  .bg-gradient-brand {
+    background: none;
+    border: 1px solid #000;
+  }
+}

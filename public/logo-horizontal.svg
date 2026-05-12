@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" width="300" height="120">
+  <defs>
+    <linearGradient id="horizGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <filter id="horizGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Icon on left -->\n  <g filter="url(#horizGlow)">
+    <path d="M 50 20 C 70 35 78 42 68 55 L 32 55 C 22 42 30 35 50 20" fill="url(#horizGradient)"/>
+    <rect x="28" y="55" width="44" height="48" fill="url(#horizGradient)" opacity="0.9" rx="4"/>
+    <rect x="40" y="68" width="24" height="32" fill="#ffffff" stroke="url(#horizGradient)" stroke-width="1" rx="2"/>
+    <circle cx="52" cy="84" r="2" fill="url(#horizGradient)"/>
+    <rect x="34" y="62" width="12" height="12" fill="#e0f2fe" stroke="url(#horizGradient)" stroke-width="1" rx="2"/>
+    <rect x="54" y="62" width="12" height="12" fill="#e0f2fe" stroke="url(#horizGradient)" stroke-width="1" rx="2"/>
+  </g>
+  
+  <!-- Text on right -->\n  <text x="140" y="50" font-family="'Segoe UI', Arial, sans-serif" font-size="48" font-weight="700\" fill="url(#horizGradient)" letter-spacing="1">HouseCom</text>\n  \n  <!-- Tagline -->\n  <text x="140" y="85" font-family="'Segoe UI', Arial, sans-serif\" font-size="14\" fill="#7c3aed\" opacity="0.7" letter-spacing="1">Find Your Perfect Home</text>\n</svg>"

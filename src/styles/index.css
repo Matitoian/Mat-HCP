@@ -1,0 +1,257 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+@import 'leaflet/dist/leaflet.css';
+
+/* ── Global font override ── */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #fafafa;
+  color: #0a0a0a;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-poppins {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* ──────────────────────────────────────────
+   ENHANCED TRANSITIONS & ANIMATIONS
+────────────────────────────────────────── */
+
+/* Smooth transitions for all interactive elements */
+button, a, input, select, textarea {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects */
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Input focus states */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 0 0 1px rgb(59, 130, 246);
+}
+
+/* ──────────────────────────────────────────
+   RESPONSIVE UTILITIES
+────────────────────────────────────────── */
+
+/* Mobile-first responsive text */
+h1 { @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl; }
+h2 { @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl; }
+h3 { @apply text-lg sm:text-xl md:text-2xl lg:text-3xl; }
+
+/* Safe area padding for mobile notch */
+@supports (padding: max(0px)) {
+  body { padding-left: max(0px, env(safe-area-inset-left)); padding-right: max(0px, env(safe-area-inset-right)); }
+}
+
+/* ──────────────────────────────────────────
+   ACCESSIBILITY IMPROVEMENTS
+────────────────────────────────────────── */
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* ──────────────────────────────────────────
+   PERFORMANCE OPTIMIZATIONS
+────────────────────────────────────────── */
+
+/* Will-change for animated elements */
+.carousel, .slider { will-change: transform; }
+
+/* Optimize images */
+img { display: block; max-width: 100%; }
+
+/* Container queries for responsive components */
+@supports (container-type: inline-size) {
+  .card-container { container-type: inline-size; }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ──────────────────────────────────────────
+   HERO GRADIENT ANIMATION
+────────────────────────────────────────── */
+@keyframes gradientShift {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #1e3a8a, #0e7490, #1d4ed8, #0f766e, #1e40af);
+  background-size: 300% 300%;
+  animation: gradientShift 10s ease infinite;
+}
+
+/* ──────────────────────────────────────────
+   HERO FLOAT ANIMATION
+────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+.float-anim {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* ──────────────────────────────────────────
+   PROPERTY CARD HOVER
+────────────────────────────────────────── */
+.property-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+.property-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+.property-card .card-img {
+  transition: transform 0.45s ease;
+}
+.property-card:hover .card-img {
+  transform: scale(1.07);
+}
+.property-card .view-btn {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.property-card:hover .view-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ──────────────────────────────────────────
+   COUNTY CARD HOVER SHIMMER
+────────────────────────────────────────── */
+.county-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.county-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0) 60%);
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+}
+.county-card:hover::after {
+  transform: translateX(100%);
+}
+.county-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* ──────────────────────────────────────────
+   LANGUAGE FADE TRANSITION
+────────────────────────────────────────── */
+@keyframes langFade {
+  0%   { opacity: 0; transform: scale(0.97); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.lang-transition {
+  animation: langFade 0.25s ease forwards;
+}
+
+/* ──────────────────────────────────────────
+   CHATBOT PULSE RING
+────────────────────────────────────────── */
+@keyframes pulseBig {
+  0%   { transform: scale(1);    opacity: 0.7; }
+  70%  { transform: scale(1.6);  opacity: 0;   }
+  100% { transform: scale(1.6);  opacity: 0;   }
+}
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.45);
+  animation: pulseBig 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* ──────────────────────────────────────────
+   BOTTOM NAV SLIDING PILL
+────────────────────────────────────────── */
+.bottom-nav-pill {
+  transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ──────────────────────────────────────────
+   STAT COUNTER ANIMATION
+────────────────────────────────────────── */
+@keyframes countIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stat-item {
+  animation: countIn 0.6s ease forwards;
+}
+
+/* ──────────────────────────────────────────
+   BUTTON SHIMMER  (CTA buttons)
+────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.btn-shimmer {
+  background: linear-gradient(90deg, #2563eb 30%, #38bdf8 50%, #2563eb 70%);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* ──────────────────────────────────────────
+   VERIFIED BADGE GLOW
+────────────────────────────────────────── */
+@keyframes verifiedGlow {
+  0%, 100% { box-shadow: 0 0 6px 0 rgba(34,197,94,0.5); }
+  50%      { box-shadow: 0 0 14px 4px rgba(34,197,94,0.7); }
+}
+.verified-glow {
+  animation: verifiedGlow 2.5s ease-in-out infinite;
+}

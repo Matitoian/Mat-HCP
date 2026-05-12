@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="creativeDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f4ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#e0e7ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f3e8ff;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="creativeGlowDark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+    <filter id="glowEffectDark">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Dark background -->
+  <circle cx="100" cy="100" r="95" fill="#1a1f3a" stroke="url(#creativeDark)" stroke-width="2"/>
+  
+  <!-- Glow effect -->
+  <circle cx="100" cy="100" r="90" fill="url(#creativeGlowDark)" opacity="0.3"/>
+  
+  <!-- Decorative floating elements (light) -->
+  <circle cx="80" cy="60" r="4" fill="url(#creativeDark)" opacity="0.25"/>
+  <circle cx="120" cy="50" r="3" fill="url(#creativeDark)" opacity="0.3"/>
+  <circle cx="140" cy="90" r="3.5" fill="url(#creativeDark)" opacity="0.2"/>
+  
+  <!-- Connection lines -->
+  <path d="M 80 60 Q 100 70 120 50" stroke="url(#creativeDark)" stroke-width="1" fill="none" opacity="0.1"/>
+  <path d="M 120 50 Q 130 70 140 90" stroke="url(#creativeDark)" stroke-width="1" fill="none" opacity="0.1"/>
+  
+  <!-- Main house - light version for dark background -->
+  <g filter="url(#glowEffectDark)">
+    <!-- Roof -->
+    <path d="M 100 30 C 130 50 140 60 125 75 L 75 75 C 60 60 70 50 100 30" fill="url(#creativeDark)" stroke="none"/>
+    
+    <!-- Main body -->
+    <rect x="60" y="75" width="80" height="65" fill="url(#creativeDark)" opacity="0.85" rx="6"/>
+    
+    <!-- Door with dark accent -->
+    <rect x="82" y="100" width="36" height="45" fill="#1a1f3a" stroke="url(#creativeDark)" stroke-width="2.5" rx="4"/>
+    
+    <!-- Door handle -->
+    <circle cx="113" cy="122" r="2.5" fill="#f97316"/>
+    
+    <!-- Upper left window -->
+    <rect x="68" y="85" width="16" height="16" fill="#3b82f6" stroke="url(#creativeDark)" stroke-width="1.5" rx="3" opacity="0.7"/>
+    <path d="M 76 85 L 76 101 M 68 93 L 84 93" stroke="url(#creativeDark)" stroke-width="0.8" opacity="0.5"/>
+    
+    <!-- Upper right window -->
+    <rect x="116" y="85" width="16" height="16" fill="#3b82f6" stroke="url(#creativeDark)" stroke-width="1.5" rx="3" opacity="0.7"/>
+    <path d="M 124 85 L 124 101 M 116 93 L 132 93" stroke="url(#creativeDark)" stroke-width="0.8" opacity="0.5"/>
+    
+    <!-- Lower windows -->
+    <rect x="68" y="120" width="12" height="12" fill="#60a5fa" stroke="url(#creativeDark)" stroke-width="1" rx="2"/>
+    <rect x="120" y="120" width="12" height="12" fill="#60a5fa" stroke="url(#creativeDark)" stroke-width="1" rx="2"/>
+  </g>
+  
+  <!-- Connection indicators -->
+  <circle cx="55" cy="100" r="2" fill="url(#creativeDark)" opacity="0.5"/>
+  <circle cx="145" cy="100" r="2" fill="url(#creativeDark)" opacity="0.5"/>
+  <circle cx="100" cy="50" r="2" fill="url(#creativeDark)" opacity="0.5"/>
+  
+  <!-- Text - light for dark background -->
+  <text x="100" y="172" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="url(#creativeDark)" text-anchor="middle" letter-spacing="0.5" style="font-variant: small-caps;">HouseCom</text>
+  
+  <!-- Subtle tagline -->
+  <text x="100" y="190" font-family="'Segoe UI', Arial, sans-serif" font-size="8" fill="#c7d2fe" text-anchor="middle" opacity="0.6" font-style="italic">Modern Real Estate</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="creativePrimaryIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glowEffectIcon">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main creative house design (smaller) -->
+  <g filter="url(#glowEffectIcon)">
+    <!-- Roof - flowing design -->
+    <path d="M 60 15 C 85 30 92 38 80 50 L 40 50 C 28 38 35 30 60 15" fill="url(#creativePrimaryIcon)"/>
+    
+    <!-- Main body -->
+    <rect x="36" y="50" width="48" height="42" fill="url(#creativePrimaryIcon)" opacity="0.9" rx="4"/>
+    
+    <!-- Door -->
+    <rect x="50" y="62" width="20" height="28" fill="#ffffff" stroke="url(#creativePrimaryIcon)" stroke-width="1.2" rx="2"/>
+    <circle cx="68" cy="76" r="1.5" fill="url(#creativePrimaryIcon)"/>
+    
+    <!-- Left window -->
+    <rect x="42" y="56" width="10" height="10" fill="#e0f2fe" stroke="url(#creativePrimaryIcon)" stroke-width="1" rx="2"/>
+    <path d="M 47 56 L 47 66 M 42 61 L 52 61" stroke="url(#creativePrimaryIcon)" stroke-width="0.5" opacity="0.6"/>
+    
+    <!-- Right window -->
+    <rect x="68" y="56" width="10" height="10" fill="#e0f2fe" stroke="url(#creativePrimaryIcon)" stroke-width="1" rx="2"/>
+    <path d="M 73 56 L 73 66 M 68 61 L 78 61" stroke="url(#creativePrimaryIcon)" stroke-width="0.5" opacity="0.6"/>
+  </g>
+</svg>

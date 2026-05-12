@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="creativePrimary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="creativeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+    <filter id="shadowCreative" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.15"/>
+    </filter>
+    <filter id="glowEffect">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle with subtle pattern -->
+  <circle cx="100" cy="100" r="95" fill="white" stroke="url(#creativePrimary)" stroke-width="2" filter="url(#shadowCreative)"/>
+  
+  <!-- Decorative background elements -->
+  <circle cx="100" cy="100" r="90" fill="url(#creativeGlow)" opacity="0.5"/>
+  
+  <!-- Floating circles (representing nodes/connection) -->
+  <circle cx="80" cy="60" r="4" fill="url(#creativePrimary)" opacity="0.3"/>
+  <circle cx="120" cy="50" r="3" fill="url(#creativePrimary)" opacity="0.4"/>
+  <circle cx="140" cy="90" r="3.5" fill="url(#creativePrimary)" opacity="0.3"/>
+  <circle cx="150" cy="140" r="2.5" fill="url(#creativePrimary)" opacity="0.4"/>
+  
+  <!-- Connection lines between nodes (subtle) -->
+  <path d="M 80 60 Q 100 70 120 50" stroke="url(#creativePrimary)" stroke-width="1" fill="none" opacity="0.15"/>
+  <path d="M 120 50 Q 130 70 140 90" stroke="url(#creativePrimary)" stroke-width="1" fill="none" opacity="0.15"/>
+  <path d="M 140 90 Q 140 115 150 140" stroke="url(#creativePrimary)" stroke-width="1" fill="none" opacity="0.15"/>
+  
+  <!-- Main creative house design -->
+  <g filter="url(#glowEffect)">
+    <!-- Roof - flowing design -->
+    <path d="M 100 30 C 130 50 140 60 125 75 L 75 75 C 60 60 70 50 100 30" fill="url(#creativePrimary)" stroke="none"/>
+    
+    <!-- Roof accent line (metallic edge) -->
+    <path d="M 75 75 Q 100 85 125 75" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.8"/>
+    
+    <!-- Main body - modern rounded -->
+    <rect x="60" y="75" width="80" height="65" fill="url(#creativePrimary)" opacity="0.9" rx="6"/>
+    
+    <!-- Left accent panel (depth) -->
+    <path d="M 60 75 L 65 85 L 65 135 L 60 140 Z" fill="#7c3aed" opacity="0.4"/>
+    
+    <!-- Central door with modern design -->
+    <rect x="82" y="100" width="36" height="45" fill="#ffffff" stroke="url(#creativePrimary)" stroke-width="2" rx="4" opacity="0.95"/>
+    
+    <!-- Door handle accent -->
+    <circle cx="113" cy="122" r="2.5" fill="url(#creativePrimary)" filter="url(#glowEffect)"/>
+    
+    <!-- Door line detail -->
+    <line x1="100" y1="100" x2="100" y2="145" stroke="url(#creativePrimary)" stroke-width="1.5" opacity="0.3"/>
+    
+    <!-- Upper left window - modern glass look -->
+    <rect x="68" y="85" width="16" height="16" fill="#e0f2fe" stroke="url(#creativePrimary)" stroke-width="1.5" rx="3"/>
+    <path d="M 76 85 L 76 101 M 68 93 L 84 93" stroke="url(#creativePrimary)" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="72" cy="89" r="2" fill="url(#creativePrimary)" opacity="0.5"/>
+    
+    <!-- Upper right window - modern glass look -->
+    <rect x="116" y="85" width="16" height="16" fill="#e0f2fe" stroke="url(#creativePrimary)" stroke-width="1.5" rx="3"/>
+    <path d="M 124 85 L 124 101 M 116 93 L 132 93" stroke="url(#creativePrimary)" stroke-width="0.8" opacity="0.6"/>
+    <circle cx="120" cy="89" r="2" fill="url(#creativePrimary)" opacity="0.5"/>
+    
+    <!-- Lower left window -->
+    <rect x="68" y="120" width="12" height="12" fill="#bae6fd" stroke="url(#creativePrimary)" stroke-width="1" rx="2"/>
+    
+    <!-- Lower right window -->
+    <rect x="120" y="120" width="12" height="12" fill="#bae6fd" stroke="url(#creativePrimary)" stroke-width="1" rx="2"/>
+    
+    <!-- Bottom accent (grass/foundation) -->
+    <ellipse cx="100" cy="142" rx="45" ry="6" fill="url(#creativePrimary)" opacity="0.15"/>
+  </g>
+  
+  <!-- Animated connection dots (subtle indicators of platform connection) -->
+  <g opacity="0.6">
+    <circle cx="55" cy="100" r="2" fill="url(#creativePrimary)"/>
+    <circle cx="145" cy="100" r="2" fill="url(#creativePrimary)"/>
+    <circle cx="100" cy="50" r="2" fill="url(#creativePrimary)"/>
+  </g>
+  
+  <!-- Text with modern styling -->
+  <text x="100" y="172" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="url(#creativePrimary)" text-anchor="middle" letter-spacing="0.5" style="font-variant: small-caps;">HouseCom</text>
+  
+  <!-- Subtle tagline hint (optional) -->
+  <text x="100" y="190" font-family="'Segoe UI', Arial, sans-serif" font-size="8" fill="#7c3aed" text-anchor="middle" opacity="0.5" font-style="italic">Modern Real Estate</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <style>
+      .house-fill { fill: #2563eb; }
+      .door-fill { fill: #1e40af; }
+      .window-fill { fill: #60a5fa; }
+    </style>
+  </defs>
+  <!-- Roof -->
+  <polygon points="16,2 2,14 4,14 4,28 28,28 28,14 30,14" class="house-fill"/>
+  <!-- Main body -->
+  <rect x="4" y="14" width="24" height="14" class="house-fill"/>
+  <!-- Door -->
+  <rect x="13" y="19" width="6" height="9" class="door-fill"/>
+  <!-- Door handle -->
+  <circle cx="19" cy="24" r="0.8" fill="#fbbf24"/>
+  <!-- Left window -->
+  <rect x="6" y="17" width="4" height="4" class="window-fill"/>
+  <line x1="8" y1="17" x2="8" y2="21" stroke="#1e40af" stroke-width="0.5"/>
+  <line x1="6" y1="19" x2="10" y2="19" stroke="#1e40af" stroke-width="0.5"/>
+  <!-- Right window -->
+  <rect x="22" y="17" width="4" height="4" class="window-fill"/>
+  <line x1="24" y1="17" x2="24" y2="21" stroke="#1e40af" stroke-width="0.5"/>
+  <line x1="22" y1="19" x2="26" y2="19" stroke="#1e40af" stroke-width="0.5"/>
+</svg>
